@@ -3,25 +3,24 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>了解线程(第一篇) | ShenTiePeng&#39;s Blog</title>
+  <title>ShenTiePeng&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="MinHow,MinHow's Blog">
   
   <meta name="description" content="线程基础线程的基础概念1. CPU核心和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程. ​     2. CPU时间片轮转机制​        又称RR调度，会导致上下文切换. ​        这里讲下cpu时间片轮转机制的概念: ​        时间片轮转法（Round-Robin，RR）主要用于">
-<meta name="keywords" content="多线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="了解线程(第一篇)">
+<meta property="og:title" content="ShenTiePeng&#39;s Blog">
 <meta property="og:url" content="https://coleflower.github.io/2019/06/19/了解线程(第一篇)/index.html">
 <meta property="og:site_name" content="ShenTiePeng&#39;s Blog">
 <meta property="og:description" content="线程基础线程的基础概念1. CPU核心和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程. ​     2. CPU时间片轮转机制​        又称RR调度，会导致上下文切换. ​        这里讲下cpu时间片轮转机制的概念: ​        时间片轮转法（Round-Robin，RR）主要用于">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190515214854232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMxMDE0Ng==,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-06-19T09:43:50.414Z">
+<meta property="og:image" content="c:%5CUsers%5CHIISO%5CDesktop%5C20190515214854232.png">
+<meta property="og:updated_time" content="2019-06-19T09:51:48.293Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="了解线程(第一篇)">
+<meta name="twitter:title" content="ShenTiePeng&#39;s Blog">
 <meta name="twitter:description" content="线程基础线程的基础概念1. CPU核心和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程. ​     2. CPU时间片轮转机制​        又称RR调度，会导致上下文切换. ​        这里讲下cpu时间片轮转机制的概念: ​        时间片轮转法（Round-Robin，RR）主要用于">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190515214854232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMxMDE0Ng==,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="c:%5CUsers%5CHIISO%5CDesktop%5C20190515214854232.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -109,36 +108,6 @@
         <section id="main" class="body-wrap"><article id="post-了解线程(第一篇)" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
-  
-    <h1 class="post-title" itemprop="name">
-      了解线程(第一篇)
-    </h1>
-    <div class="post-title-bar">
-      <ul>
-          
-              <li>
-                  <i class="fa fa-book"></i>
-                  
-                      <a href="/categories/多线程/">多线程</a>
-                  
-              </li>
-          
-        <li>
-          <i class="fa fa-calendar"></i>  2019-06-19
-        </li>
-        <li>
-          <i class="fa fa-eye"></i>
-          <span id="busuanzi_value_page_pv"></span>
-        </li>
-      </ul>
-    </div>
-  
-
-          
-      </header>
-    
     <div class="article-entry post-content" itemprop="articleBody">
       
             
@@ -173,8 +142,8 @@
 <p>​        isInterrupted() 判定当前线程是否处于中断状态。</p>
 <p>​        static方法interrupted() 判定<strong>当前线程</strong>是否处于中断状态，同时中断标志位改为false。(该方法调用后会将中断标示位清除，即重新设置为false,如果连续两次调用该方法，则第二次调用将返回 false。)。</p>
 <p>​        对于上面方法的一些概念和使用方法以及其中的坑可以看下<a href="https://blog.csdn.net/qq_39682377" target="_blank" rel="noopener">LZing_</a>的博客,总结的通俗易懂.</p>
-<p>​        关于interrupt()的详细使用方法可以看下</p>
-<h3 id="对线程再多一点点认识"><a href="#对线程再多一点点认识" class="headerlink" title="对线程再多一点点认识"></a><strong>对线程再多一点点认识</strong></h3><h5 id="1-线程的状态和常用方法"><a href="#1-线程的状态和常用方法" class="headerlink" title="1.线程的状态和常用方法:"></a>1.线程的状态和常用方法:</h5><p><img src="https://img-blog.csdnimg.cn/20190515214854232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMxMDE0Ng==,size_16,color_FFFFFF,t_70" alt></p>
+<p>​        关于interrupt()的详细使用方法可以看下<a href="https://coleflower.github.io/2019/06/19/%E5%A4%9A%E7%BA%BF%E7%A8%8Binterrupt()%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%BB%88%E6%AD%A2%E6%96%B9%E5%BC%8F/">多线程interrupt()和线程终止方式</a></p>
+<h3 id="线程多认识一点点"><a href="#线程多认识一点点" class="headerlink" title="线程多认识一点点"></a><strong>线程多认识一点点</strong></h3><h5 id="1-线程的状态和常用方法"><a href="#1-线程的状态和常用方法" class="headerlink" title="1.线程的状态和常用方法:"></a>1.线程的状态和常用方法:</h5><p><img src="C:%5CUsers%5CHIISO%5CDesktop%5C20190515214854232.png" alt></p>
 <p>​        线程只有5种状态。整个生命周期就是这几种状态的切换。</p>
 <p>​        run()和start() ：run方法就是普通对象的普通方法，只有调用了start()后，Java才会将线程对象和操作系统中实际的线程进行映射，再来执行run方法。</p>
 <p>​        yield() ：让出cpu的执行权，将线程从运行转到可运行状态，但是下个时间片，该线程依然有可能被再次选中运行。</p>
@@ -187,8 +156,8 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年06月19日 17:43</p>
-        <p>原始链接： <a class="post-url" href="/2019/06/19/了解线程(第一篇)/" title="了解线程(第一篇)">https://coleflower.github.io/2019/06/19/了解线程(第一篇)/</a></p>
+        <p>最后更新： 2019年06月19日 17:51</p>
+        <p>原始链接： <a class="post-url" href="/2019/06/19/了解线程(第一篇)/" title="">https://coleflower.github.io/2019/06/19/了解线程(第一篇)/</a></p>
         <footer>
             <a href="https://coleflower.github.io">
                 <img src="/images/header.jpg" alt="ShenTiePeng">
@@ -245,7 +214,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://coleflower.github.io/2019/06/19/了解线程(第一篇)/&title=《了解线程(第一篇)》 — ShenTiePeng's Blog&pic=images/banner.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://coleflower.github.io/2019/06/19/了解线程(第一篇)/&title=ShenTiePeng's Blog&pic=https://coleflower.github.ioimages/header.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -255,7 +224,7 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://coleflower.github.io/2019/06/19/了解线程(第一篇)/&title=《了解线程(第一篇)》 — ShenTiePeng's Blog&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://coleflower.github.io/2019/06/19/了解线程(第一篇)/&title=ShenTiePeng's Blog&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
@@ -265,7 +234,7 @@
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《了解线程(第一篇)》 — ShenTiePeng's Blog&url=https://coleflower.github.io/2019/06/19/了解线程(第一篇)/&via=https://coleflower.github.io" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=ShenTiePeng's Blog&url=https://coleflower.github.io/2019/06/19/了解线程(第一篇)/&via=https://coleflower.github.io" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
@@ -289,13 +258,6 @@
         <ul class="article-footer-menu">
             
             
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/多线程/" class="color4">多线程</a>
-      
-  </li>
-
         </ul>
         
     </footer>
@@ -305,23 +267,18 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线程基础"><span class="post-toc-text">线程基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程的基础概念"><span class="post-toc-text">线程的基础概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-CPU核心和线程数的关系"><span class="post-toc-text">1. CPU核心和线程数的关系</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-CPU时间片轮转机制"><span class="post-toc-text">2. CPU时间片轮转机制</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-什么是进程和线程"><span class="post-toc-text">3. 什么是进程和线程</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-澄清并行和并发"><span class="post-toc-text">4. 澄清并行和并发</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#5-高并发编程"><span class="post-toc-text">5. 高并发编程</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Java中的线程"><span class="post-toc-text">Java中的线程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-Java天生就是多线程的"><span class="post-toc-text">1. Java天生就是多线程的</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-实现线程的三个方法"><span class="post-toc-text">2. 实现线程的三个方法</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-让Java的线程安全的停止工作"><span class="post-toc-text">3.让Java的线程安全的停止工作</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对线程再多一点点认识"><span class="post-toc-text">对线程再多一点点认识</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-线程的状态和常用方法"><span class="post-toc-text">1.线程的状态和常用方法:</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-线程的优先级"><span class="post-toc-text">2. 线程的优先级</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-守护线程"><span class="post-toc-text">3. 守护线程</span></a></li></ol></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线程基础"><span class="post-toc-text">线程基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程的基础概念"><span class="post-toc-text">线程的基础概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-CPU核心和线程数的关系"><span class="post-toc-text">1. CPU核心和线程数的关系</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-CPU时间片轮转机制"><span class="post-toc-text">2. CPU时间片轮转机制</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-什么是进程和线程"><span class="post-toc-text">3. 什么是进程和线程</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-澄清并行和并发"><span class="post-toc-text">4. 澄清并行和并发</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#5-高并发编程"><span class="post-toc-text">5. 高并发编程</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Java中的线程"><span class="post-toc-text">Java中的线程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-Java天生就是多线程的"><span class="post-toc-text">1. Java天生就是多线程的</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-实现线程的三个方法"><span class="post-toc-text">2. 实现线程的三个方法</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-让Java的线程安全的停止工作"><span class="post-toc-text">3.让Java的线程安全的停止工作</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程多认识一点点"><span class="post-toc-text">线程多认识一点点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-线程的状态和常用方法"><span class="post-toc-text">1.线程的状态和常用方法:</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-线程的优先级"><span class="post-toc-text">2. 线程的优先级</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-守护线程"><span class="post-toc-text">3. 守护线程</span></a></li></ol></li></ol></li></ol></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
   
-    <a href="/2019/06/19/多线程interrupt()和线程终止方式/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          多线程interrupt()和线程终止方式
-        
-      </span>
-    </a>
   
+    <a href="/2019/06/19/多线程interrupt()和线程终止方式/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">多线程interrupt()和线程终止方式</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
   
 </nav>
 
