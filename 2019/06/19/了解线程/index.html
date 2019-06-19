@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>了解线程 | ShenTiePeng&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="MinHow,MinHow's Blog">
+  
+  <meta name="description" content="线程基础线程的基础概念1. CPU核心数和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程. ​     2. CPU时间片轮转机制​        又称RR调度，会导致上下文切换. ​        这里讲下cpu时间片轮转机制的概念: ​        时间片轮转法（Round-Robin，RR）主要用">
+<meta name="keywords" content="多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="了解线程">
+<meta property="og:url" content="https://coleflower.github.io/2019/06/19/了解线程/index.html">
+<meta property="og:site_name" content="ShenTiePeng&#39;s Blog">
+<meta property="og:description" content="线程基础线程的基础概念1. CPU核心数和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程. ​     2. CPU时间片轮转机制​        又称RR调度，会导致上下文切换. ​        这里讲下cpu时间片轮转机制的概念: ​        时间片轮转法（Round-Robin，RR）主要用">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190515214854232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMxMDE0Ng==,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-06-19T08:47:04.851Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="了解线程">
+<meta name="twitter:description" content="线程基础线程的基础概念1. CPU核心数和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程. ​     2. CPU时间片轮转机制​        又称RR调度，会导致上下文切换. ​        这里讲下cpu时间片轮转机制的概念: ​        时间片轮转法（Round-Robin，RR）主要用">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190515214854232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMxMDE0Ng==,size_16,color_FFFFFF,t_70">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">ShenTiePeng&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/header.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        ShenTiePeng&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        不穿内裤的超人
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="//coleflower.github.io">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/coleflower">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-了解线程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      了解线程
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/多线程/">多线程</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-06-19
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h2 id="线程基础"><a href="#线程基础" class="headerlink" title="线程基础"></a>线程基础</h2><h3 id="线程的基础概念"><a href="#线程的基础概念" class="headerlink" title="线程的基础概念"></a>线程的基础概念</h3><h5 id="1-CPU核心数和线程数的关系"><a href="#1-CPU核心数和线程数的关系" class="headerlink" title="1. CPU核心数和线程数的关系"></a><strong>1. CPU核心数和线程数的关系</strong></h5><p>​        核心数:线程数=1:1  ;使用了超线程技术后—&gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程.</p>
+<p>​    </p>
+<h5 id="2-CPU时间片轮转机制"><a href="#2-CPU时间片轮转机制" class="headerlink" title="2. CPU时间片轮转机制"></a><strong>2. CPU时间片轮转机制</strong></h5><p>​        又称RR调度，会导致上下文切换.</p>
+<p>​        <strong>这里讲下cpu时间片轮转机制的概念:</strong></p>
+<p>​        时间片轮转法（Round-Robin，RR）主要用于分时系统中的进程调度。为了实现轮转调度，    系统把所有就绪进程按先入先出的原则排成一个队列。新来的进程加到就绪队列末尾。每当执行进程调度时，进程调度程序总是选出就绪队列的队首进程，让它在CPU上运行一个时间片的时间。时间片是一个小的时间单位，通常为10~100ms数量级。当进程用完分给它的时间片后，系统的计时器发出时钟中断，调度程序便停止该进程的运行，把它放入就绪队列的末尾；然后，把CPU分给就绪队列的队首进程，同样也让它运行一个时间片，如此往复。    </p>
+<h5 id="3-什么是进程和线程-简单的概述下-重在理解"><a href="#3-什么是进程和线程-简单的概述下-重在理解" class="headerlink" title="3. 什么是进程和线程(简单的概述下,重在理解)"></a><strong>3. 什么是进程和线程</strong>(简单的概述下,重在理解)</h5><p>​        进程：程序运行资源分配的最小单位，进程内部有多个线程，会共享这个进程的资源</p>
+<p>​        线程：CPU调度的最小单位，必须依赖进程而存在。</p>
+<h5 id="4-澄清并行和并发"><a href="#4-澄清并行和并发" class="headerlink" title="4. 澄清并行和并发"></a><strong>4. 澄清并行和并发</strong></h5><p>​        并行：同一时刻，可以同时处理事情的能力</p>
+<p>​        并发：在单位时间内可以处理事情的能力</p>
+<p>​        <strong>总结一下:</strong> </p>
+<p>​                并行指的是一段时间,比如从中午的11点到12点能处理多少线程.</p>
+<p>​                并发指的是同一时刻,比如双十一的00:00这一时刻能处理多少线程.</p>
+<h5 id="5-高并发编程的意义、好处和注意事项"><a href="#5-高并发编程的意义、好处和注意事项" class="headerlink" title="5. 高并发编程的意义、好处和注意事项"></a><strong>5. 高并发编程的意义、好处和注意事项</strong></h5><p>​        好处：充分利用cpu的资源、加快用户响应的时间，程序模块化，异步化</p>
+<p>​            问题：</p>
+<p>​                线程共享资源，存在冲突；</p>
+<p>​                容易导致死锁；</p>
+<p>​                启用太多的线程，就有搞垮机器的可能</p>
+<h3 id="Java中的线程"><a href="#Java中的线程" class="headerlink" title="Java中的线程"></a><strong>Java中的线程</strong></h3><h5 id="1-Java天生就是多线程的-我们看下下面这个例子"><a href="#1-Java天生就是多线程的-我们看下下面这个例子" class="headerlink" title="1. Java天生就是多线程的,我们看下下面这个例子:"></a><strong>1. Java天生就是多线程的,我们看下下面这个例子:</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class OnlyMain &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();</span><br><span class="line">        ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(false, false);</span><br><span class="line"></span><br><span class="line">        for(ThreadInfo threadInfo : threadInfos)&#123;</span><br><span class="line">            System.out.println(threadInfo.getThreadId()+&quot;:&quot;+threadInfo.getThreadName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">//执行了一次main方法控制台输出如下</span><br><span class="line">=============================================================================</span><br><span class="line">6:Monitor Ctrl-Break</span><br><span class="line">5:Attach Listener</span><br><span class="line">4:Signal Dispatcher</span><br><span class="line">3:Finalizer</span><br><span class="line">2:Reference Handler</span><br><span class="line">1:main</span><br></pre></td></tr></table></figure>
+
+<p>​        我们看到执行一个main方法,并不是只执行了main这一个线程,实际上有6个线程参与了main方法的执行.</p>
+<h5 id="2-实现线程的三个方法"><a href="#2-实现线程的三个方法" class="headerlink" title="2. 实现线程的三个方法"></a><strong>2. 实现线程的三个方法</strong></h5><p>​        我们知道实现线程的方法有继承Thread类和实现runable或者callable接口,为啥可以继承一个类就可以完成的事情,还有要多此一举在写一个runable接口呢,因为Java是单继承了,它只可以继承一个类,但是可以实现多个接口.</p>
+<p>​        通常日常编程中可能Thread和runable用的比较多,callable方法用的比较少,实现callable接口的线程是可以带有返回值得,这里简单写下callable接口具体的实现代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class TestA &#123;</span><br><span class="line">	//callable接口可以定义一个泛型</span><br><span class="line">    private static class UseCall implements Callable&lt;String&gt;&#123;</span><br><span class="line">        @Override</span><br><span class="line">        public String call() throws Exception &#123;</span><br><span class="line">            System.out.println(&quot;i am implements Callable&quot;);</span><br><span class="line">            return &quot;UseCall&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws ExecutionException, InterruptedException &#123;</span><br><span class="line">        UseCall useCall = new UseCall();</span><br><span class="line">        FutureTask&lt;String&gt; futureTask = new FutureTask&lt;&gt;(useCall);</span><br><span class="line">        new Thread(futureTask).start();</span><br><span class="line">        System.out.println(futureTask.get());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">=================================运行结果=====================================</span><br><span class="line">i am implements Callable</span><br><span class="line">UseCall</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-怎样让Java的线程安全的停止工作"><a href="#3-怎样让Java的线程安全的停止工作" class="headerlink" title="3.怎样让Java的线程安全的停止工作"></a><strong>3.怎样让Java的线程安全的停止工作</strong></h5><p>​        stop()停止方法、resume()继续执行方法、suspend()挂起方法.<br>这三个方法在早期的时候是有的，但现在已被废弃。因为这些方法过于强势，它强行终止一个线程，它是无法保证线程的资源能正常被释放，即线程不会释放资源。（不推荐使用）    </p>
+<p>​        java线程是协作式，而非抢占式.</p>
+<p>​        调用一个线程的interrupt() 方法中断一个线程，并不是强行关闭这个线程，只是跟这个线程打个招呼，将线程的中断标志位置为true，线程是否中断，由线程本身决定。<strong>如果线程通过wait()进入阻塞状态</strong>，此时通过interrupt()中断该线程；调用interrupt()会立即将线程的中断标记设为“true”，但是由于线程处于阻塞状态，所以该“中断标记”会立即被清除为“false”，同时，会产生一个InterruptedException的异常。</p>
+<p>​        isInterrupted() 判定当前线程是否处于中断状态。</p>
+<p>​        static方法interrupted() 判定<strong>当前线程</strong>是否处于中断状态，同时中断标志位改为false。(该方法调用后会将中断标示位清除，即重新设置为false,如果连续两次调用该方法，则第二次调用将返回 false。)。</p>
+<p>​        对于上面方法的一些概念和使用方法以及其中的坑可以看下<a href="https://blog.csdn.net/qq_39682377" target="_blank" rel="noopener">LZing_</a>的博客,总结的通俗易懂.</p>
+<h3 id="对Java里的线程再多一点点认识"><a href="#对Java里的线程再多一点点认识" class="headerlink" title="对Java里的线程再多一点点认识"></a><strong>对Java里的线程再多一点点认识</strong></h3><h5 id="1-线程的状态和常用方法"><a href="#1-线程的状态和常用方法" class="headerlink" title="1.线程的状态和常用方法:"></a>1.线程的状态和常用方法:</h5><p>​        <img src="https://img-blog.csdnimg.cn/20190515214854232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMxMDE0Ng==,size_16,color_FFFFFF,t_70" alt></p>
+<p>​        线程只有5种状态。整个生命周期就是这几种状态的切换。</p>
+<p>​        run()和start() ：run方法就是普通对象的普通方法，只有调用了start()后，Java才会将线程对象和操作系统中实际的线程进行映射，再来执行run方法。</p>
+<p>​        yield() ：让出cpu的执行权，将线程从运行转到可运行状态，但是下个时间片，该线程依然有可能被再次选中运行。</p>
+<h5 id="2-线程的优先级"><a href="#2-线程的优先级" class="headerlink" title="2. 线程的优先级"></a>2. <strong>线程的优先级</strong></h5><p>​        取值为1~10，缺省为5，但线程的优先级不可靠，不建议作为线程开发时候的手段</p>
+<h5 id="3-守护线程"><a href="#3-守护线程" class="headerlink" title="3. 守护线程"></a>3. 守护线程</h5><p>​        和主线程是共死的,比如垃圾回收线程等等.</p>
+<p>​        <strong>子线程执行完毕主线程也执行完毕.就算有finally{}也不一定会执行.</strong>下面举个例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public class TestB &#123;</span><br><span class="line"></span><br><span class="line">    private  static class UseRunable implements Runnable&#123;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            String name = Thread.currentThread().getName();</span><br><span class="line">            while (!Thread.currentThread().isInterrupted())&#123;</span><br><span class="line">                System.out.println(name + &quot;is run&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws ExecutionException, InterruptedException &#123;</span><br><span class="line">        UseRunable useRunable = new UseRunable();</span><br><span class="line">        Thread endthread = new Thread(useRunable,&quot;endthread&quot;);</span><br><span class="line">        endthread.setDaemon(true);</span><br><span class="line">        endthread.start();</span><br><span class="line">        Thread.sleep(5);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">=======================================result==================================</span><br><span class="line">endthreadis run</span><br><span class="line">endthreadis run</span><br><span class="line">endthreadis run</span><br><span class="line">endthreadis run</span><br><span class="line">endthreadis run</span><br><span class="line">endthreadis run</span><br><span class="line">endthreadis run</span><br></pre></td></tr></table></figure>
+
+<p>​    <strong>说明:</strong>endthread.setDaemon(true)是将endthread线程设置为守护线程. 主线程main执行结束,endthread作为守护线程也会执行结束.</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年06月19日 16:47</p>
+        <p>原始链接： <a class="post-url" href="/2019/06/19/了解线程/" title="了解线程">https://coleflower.github.io/2019/06/19/了解线程/</a></p>
+        <footer>
+            <a href="https://coleflower.github.io">
+                <img src="/images/header.jpg" alt="ShenTiePeng">
+                ShenTiePeng
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://coleflower.github.io/2019/06/19/了解线程/&title=《了解线程》 — ShenTiePeng's Blog&pic=images/banner.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://coleflower.github.io/2019/06/19/了解线程/&title=《了解线程》 — ShenTiePeng's Blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://coleflower.github.io/2019/06/19/了解线程/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《了解线程》 — ShenTiePeng's Blog&url=https://coleflower.github.io/2019/06/19/了解线程/&via=https://coleflower.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://coleflower.github.io/2019/06/19/了解线程/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://coleflower.github.io/2019/06/19/了解线程/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/多线程/" class="color4">多线程</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线程基础"><span class="post-toc-text">线程基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#线程的基础概念"><span class="post-toc-text">线程的基础概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-CPU核心数和线程数的关系"><span class="post-toc-text">1. CPU核心数和线程数的关系</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-CPU时间片轮转机制"><span class="post-toc-text">2. CPU时间片轮转机制</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-什么是进程和线程-简单的概述下-重在理解"><span class="post-toc-text">3. 什么是进程和线程(简单的概述下,重在理解)</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-澄清并行和并发"><span class="post-toc-text">4. 澄清并行和并发</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#5-高并发编程的意义、好处和注意事项"><span class="post-toc-text">5. 高并发编程的意义、好处和注意事项</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Java中的线程"><span class="post-toc-text">Java中的线程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-Java天生就是多线程的-我们看下下面这个例子"><span class="post-toc-text">1. Java天生就是多线程的,我们看下下面这个例子:</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-实现线程的三个方法"><span class="post-toc-text">2. 实现线程的三个方法</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-怎样让Java的线程安全的停止工作"><span class="post-toc-text">3.怎样让Java的线程安全的停止工作</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对Java里的线程再多一点点认识"><span class="post-toc-text">对Java里的线程再多一点点认识</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-线程的状态和常用方法"><span class="post-toc-text">1.线程的状态和常用方法:</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-线程的优先级"><span class="post-toc-text">2. 线程的优先级</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-守护线程"><span class="post-toc-text">3. 守护线程</span></a></li></ol></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2019/06/19/多线程interrupt()和线程终止方式/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">多线程interrupt()和线程终止方式</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="了解线程" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'cyui2MWW3';
+        var conf = '1a22e608b71023b8b406855dffa8a43d';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2019 ShenTiePeng<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://coleflower.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/多线程/">多线程</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/多线程/" style="font-size: 10px;">多线程</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/多线程/" style="font-size: 10px;">多线程</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
