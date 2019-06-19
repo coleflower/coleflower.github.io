@@ -8,19 +8,19 @@
   
     <meta name="keywords" content="MinHow,MinHow's Blog">
   
-  <meta name="description" content="线程基础线程的基础概念1. CPU核心和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程. ​     2. CPU时间片轮转机制​        又称RR调度，会导致上下文切换. ​        这里讲下cpu时间片轮转机制的概念: ​        时间片轮转法（Round-Robin，RR）主要用于">
+  <meta name="description" content="1234567title: 了解线程(第一篇)date: 2019-06-19categories: 多线程author: 不穿内裤的超人tags:    - 多线程cover_picture: images/banner.jpg  线程基础线程的基础概念1. CPU核心和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ShenTiePeng&#39;s Blog">
 <meta property="og:url" content="https://coleflower.github.io/2019/06/19/了解线程(第一篇)/index.html">
 <meta property="og:site_name" content="ShenTiePeng&#39;s Blog">
-<meta property="og:description" content="线程基础线程的基础概念1. CPU核心和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程. ​     2. CPU时间片轮转机制​        又称RR调度，会导致上下文切换. ​        这里讲下cpu时间片轮转机制的概念: ​        时间片轮转法（Round-Robin，RR）主要用于">
+<meta property="og:description" content="1234567title: 了解线程(第一篇)date: 2019-06-19categories: 多线程author: 不穿内裤的超人tags:    - 多线程cover_picture: images/banner.jpg  线程基础线程的基础概念1. CPU核心和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="c:%5CUsers%5CHIISO%5CDesktop%5C20190515214854232.png">
-<meta property="og:updated_time" content="2019-06-19T09:51:48.293Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190515214854232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMxMDE0Ng==,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-06-19T09:59:18.536Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ShenTiePeng&#39;s Blog">
-<meta name="twitter:description" content="线程基础线程的基础概念1. CPU核心和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程. ​     2. CPU时间片轮转机制​        又称RR调度，会导致上下文切换. ​        这里讲下cpu时间片轮转机制的概念: ​        时间片轮转法（Round-Robin，RR）主要用于">
-<meta name="twitter:image" content="c:%5CUsers%5CHIISO%5CDesktop%5C20190515214854232.png">
+<meta name="twitter:description" content="1234567title: 了解线程(第一篇)date: 2019-06-19categories: 多线程author: 不穿内裤的超人tags:    - 多线程cover_picture: images/banner.jpg  线程基础线程的基础概念1. CPU核心和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190515214854232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMxMDE0Ng==,size_16,color_FFFFFF,t_70">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -111,7 +111,9 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <h2 id="线程基础"><a href="#线程基础" class="headerlink" title="线程基础"></a>线程基础</h2><h3 id="线程的基础概念"><a href="#线程的基础概念" class="headerlink" title="线程的基础概念"></a>线程的基础概念</h3><h5 id="1-CPU核心和线程数的关系"><a href="#1-CPU核心和线程数的关系" class="headerlink" title="1. CPU核心和线程数的关系"></a><strong>1. CPU核心和线程数的关系</strong></h5><p>​        核心数:线程数=1:1  ;使用了超线程技术后—&gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程.</p>
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">title: 了解线程(第一篇)</span><br><span class="line">date: 2019-06-19</span><br><span class="line">categories: 多线程</span><br><span class="line">author: 不穿内裤的超人</span><br><span class="line">tags:</span><br><span class="line">    - 多线程</span><br><span class="line">cover_picture: images/banner.jpg</span><br></pre></td></tr></table></figure>
+
+<h2 id="线程基础"><a href="#线程基础" class="headerlink" title="线程基础"></a>线程基础</h2><h3 id="线程的基础概念"><a href="#线程的基础概念" class="headerlink" title="线程的基础概念"></a>线程的基础概念</h3><h5 id="1-CPU核心和线程数的关系"><a href="#1-CPU核心和线程数的关系" class="headerlink" title="1. CPU核心和线程数的关系"></a><strong>1. CPU核心和线程数的关系</strong></h5><p>​        核心数:线程数=1:1  ;使用了超线程技术后—&gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程.</p>
 <p>​    </p>
 <h5 id="2-CPU时间片轮转机制"><a href="#2-CPU时间片轮转机制" class="headerlink" title="2. CPU时间片轮转机制"></a><strong>2. CPU时间片轮转机制</strong></h5><p>​        又称RR调度，会导致上下文切换.</p>
 <p>​        <strong>这里讲下cpu时间片轮转机制的概念:</strong></p>
@@ -143,7 +145,7 @@
 <p>​        static方法interrupted() 判定<strong>当前线程</strong>是否处于中断状态，同时中断标志位改为false。(该方法调用后会将中断标示位清除，即重新设置为false,如果连续两次调用该方法，则第二次调用将返回 false。)。</p>
 <p>​        对于上面方法的一些概念和使用方法以及其中的坑可以看下<a href="https://blog.csdn.net/qq_39682377" target="_blank" rel="noopener">LZing_</a>的博客,总结的通俗易懂.</p>
 <p>​        关于interrupt()的详细使用方法可以看下<a href="https://coleflower.github.io/2019/06/19/%E5%A4%9A%E7%BA%BF%E7%A8%8Binterrupt()%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%BB%88%E6%AD%A2%E6%96%B9%E5%BC%8F/">多线程interrupt()和线程终止方式</a></p>
-<h3 id="线程多认识一点点"><a href="#线程多认识一点点" class="headerlink" title="线程多认识一点点"></a><strong>线程多认识一点点</strong></h3><h5 id="1-线程的状态和常用方法"><a href="#1-线程的状态和常用方法" class="headerlink" title="1.线程的状态和常用方法:"></a>1.线程的状态和常用方法:</h5><p><img src="C:%5CUsers%5CHIISO%5CDesktop%5C20190515214854232.png" alt></p>
+<h3 id="线程多认识一点点"><a href="#线程多认识一点点" class="headerlink" title="线程多认识一点点"></a><strong>线程多认识一点点</strong></h3><h5 id="1-线程的状态和常用方法"><a href="#1-线程的状态和常用方法" class="headerlink" title="1.线程的状态和常用方法:"></a>1.线程的状态和常用方法:</h5><p><img src="https://img-blog.csdnimg.cn/20190515214854232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMxMDE0Ng==,size_16,color_FFFFFF,t_70" alt></p>
 <p>​        线程只有5种状态。整个生命周期就是这几种状态的切换。</p>
 <p>​        run()和start() ：run方法就是普通对象的普通方法，只有调用了start()后，Java才会将线程对象和操作系统中实际的线程进行映射，再来执行run方法。</p>
 <p>​        yield() ：让出cpu的执行权，将线程从运行转到可运行状态，但是下个时间片，该线程依然有可能被再次选中运行。</p>
@@ -156,7 +158,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年06月19日 17:51</p>
+        <p>最后更新： 2019年06月19日 17:59</p>
         <p>原始链接： <a class="post-url" href="/2019/06/19/了解线程(第一篇)/" title="">https://coleflower.github.io/2019/06/19/了解线程(第一篇)/</a></p>
         <footer>
             <a href="https://coleflower.github.io">
