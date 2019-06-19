@@ -17,7 +17,7 @@
 <meta property="og:description" content="线程基础线程的基础概念1. CPU核心和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程. ​     2. CPU时间片轮转机制​        又称RR调度，会导致上下文切换. ​        这里讲下cpu时间片轮转机制的概念: ​        时间片轮转法（Round-Robin，RR）主要用于">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190515214854232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMxMDE0Ng==,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-06-19T09:25:40.010Z">
+<meta property="og:updated_time" content="2019-06-19T09:35:08.588Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="了解线程">
 <meta name="twitter:description" content="线程基础线程的基础概念1. CPU核心和线程数的关系​        核心数:线程数=1:1  ;使用了超线程技术后—&amp;gt; 1:2 ;简单的说就是一个cpu只能同时处理一个线程. ​     2. CPU时间片轮转机制​        又称RR调度，会导致上下文切换. ​        这里讲下cpu时间片轮转机制的概念: ​        时间片轮转法（Round-Robin，RR）主要用于">
@@ -173,8 +173,7 @@
 <p>​        isInterrupted() 判定当前线程是否处于中断状态。</p>
 <p>​        static方法interrupted() 判定<strong>当前线程</strong>是否处于中断状态，同时中断标志位改为false。(该方法调用后会将中断标示位清除，即重新设置为false,如果连续两次调用该方法，则第二次调用将返回 false。)。</p>
 <p>​        对于上面方法的一些概念和使用方法以及其中的坑可以看下<a href="https://blog.csdn.net/qq_39682377" target="_blank" rel="noopener">LZing_</a>的博客,总结的通俗易懂.</p>
-<p>​        关于interrupt()的详细使用方法可以看看我的</p>
-<p>.</p>
+<p>​        关于interrupt()的详细使用方法可以看下</p>
 <h3 id="对线程再多一点点认识"><a href="#对线程再多一点点认识" class="headerlink" title="对线程再多一点点认识"></a><strong>对线程再多一点点认识</strong></h3><h5 id="1-线程的状态和常用方法"><a href="#1-线程的状态和常用方法" class="headerlink" title="1.线程的状态和常用方法:"></a>1.线程的状态和常用方法:</h5><p><img src="https://img-blog.csdnimg.cn/20190515214854232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjMxMDE0Ng==,size_16,color_FFFFFF,t_70" alt></p>
 <p>​        线程只有5种状态。整个生命周期就是这几种状态的切换。</p>
 <p>​        run()和start() ：run方法就是普通对象的普通方法，只有调用了start()后，Java才会将线程对象和操作系统中实际的线程进行映射，再来执行run方法。</p>
@@ -188,7 +187,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年06月19日 17:25</p>
+        <p>最后更新： 2019年06月19日 17:35</p>
         <p>原始链接： <a class="post-url" href="/2019/06/19/了解线程(第一篇)/" title="了解线程">https://coleflower.github.io/2019/06/19/了解线程(第一篇)/</a></p>
         <footer>
             <a href="https://coleflower.github.io">
@@ -313,16 +312,11 @@
 
 <nav id="article-nav">
   
-    <a href="/2019/06/19/多线程interrupt()和线程终止方式/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          多线程interrupt()和线程终止方式
-        
-      </span>
-    </a>
   
+    <a href="/2019/06/19/多线程interrupt()和线程终止方式/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">多线程interrupt()和线程终止方式</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
   
 </nav>
 
